@@ -144,7 +144,7 @@ def download_and_process(filename, data_dir):
 if __name__ == "__main__":
     logger = get_module_logger(__name__)
     parser = argparse.ArgumentParser(description='Download and process tf files')
-    parser.add_argument('--data_dir', required=True,
+    parser.add_argument('--data_dir', required=False, default="./data/",
                         help='data directory')
     parser.add_argument('--size', required=False, default=100, type=int,
                         help='Number of files to download')

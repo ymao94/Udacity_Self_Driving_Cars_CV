@@ -1,7 +1,9 @@
 import argparse
+from cgi import test
 import glob
 import os
 import random
+import shutil
 
 import numpy as np
 
@@ -18,8 +20,44 @@ def split(source, destination):
         - destination [str]: destination data directory, contains 3 sub folders: train / val / test
     """
     # TODO: Implement function
+    
+    # get files
+    
+    train_ratio = 0.6
+    val_ratio = 0.2
+    
+    files = sorted(glob.glob(source + '/*.tfrecord'))
+    
+    for name in ['train', 'val', 'test']:
+        
+        folder = os.path.join(destination, name)
+        os.makedirs(folder, exist_ok=True)
 
-
+    random.shuffle(files)
+    
+    train_data = int(len(files) * train_ratio)
+    val_data = int(len(files) * val_ratio)
+    
+    for idx in range(train_data):
+        _, name = os.path.split(files[idx])
+        ori = os.path.join(source, name)
+        ziel = os.path.join(destination, 'train', name)
+        shutil.move(ori, ziel)
+    
+    for idx in range(train_data, train_data + val_data):
+        _, name = os.path.split(files[idx])
+        ori = os.path.join(source, name)
+        ziel = os.path.join(destination, 'val', name)
+        shutil.move(ori, ziel)
+        
+    for idx in range(train_data + val_data, len(files)):
+        _, name = os.path.split(files[idx])
+        ori = os.path.join(source, name)
+        ziel = os.path.join(destination, 'test', name)
+        shutil.move(ori, ziel)
+        
+    logger.info('Split created successfully.')
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Split data into training / validation / testing')
     parser.add_argument('--source', required=True,

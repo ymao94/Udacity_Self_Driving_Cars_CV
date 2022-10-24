@@ -69,3 +69,5 @@ if __name__ == "__main__":
     logger = get_module_logger(__name__)
     logger.info('Creating splits...')
     split(args.source, args.destination)
+    
+    #segment-11236550977973464715_3620_000_3640_000_with_camera_labels.tfrecord

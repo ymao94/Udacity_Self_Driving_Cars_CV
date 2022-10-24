@@ -3,5 +3,14 @@
 data/
 .idea*
 experiments/pretrained_model/
-experiments/reference/
+experiments/reference/eval/
+experiments/reference/train/
+experiments/reference/exported/
+experiments/reference/ckpt*
+
+experiments/improved/eval/
+experiments/improved/train/
+experiments/improved/exported/
+experiments/improved/ckpt*
+
 .vscode/
